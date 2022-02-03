@@ -31,31 +31,33 @@ class HomeController extends Controller
     {
         if (Auth::user()->level == "admin") {
             return redirect('/dashboard-admin');
-        }
-        $kost = Kost::all()->where('user_id', Auth::user()->id)->count();
-        $kostdata = Kost::all()->where('user_id', Auth::user()->id)->first();
-
-        if ($kost == 0) {
-            return redirect('/profile');
-        }
-
-        $jumlahKamar = $this->Kosts->jumlah_kost(Auth::user()->id);
-        // $jumlahPenghuni = $this->Penghuni->jumlah_penghuni_group_by(Auth::user()->id);
-        $jumlahPenghuni = Resident::all()->where('kost_id', $kostdata->id);
-
-        // dd($jumlahPenghuni);
-        if ($kost == null) {
-            $status = "off";
         } else {
-            $status = "on";
-        }
 
-        return view('dashboard', [
-            "title" => "Dashboard",
-            "status" => $status,
-            "kost" => $kost,
-            "jumlahKamar" => $jumlahKamar,
-            "jumlahPenghuni" => $jumlahPenghuni,
-        ]);
+            $kost = Kost::all()->where('user_id', Auth::user()->id)->count();
+            $kostdata = Kost::all()->where('user_id', Auth::user()->id)->first();
+
+            if ($kost == 0) {
+                return redirect('/profile');
+            }
+
+            $jumlahKamar = $this->Kosts->jumlah_kost(Auth::user()->id);
+            // $jumlahPenghuni = $this->Penghuni->jumlah_penghuni_group_by(Auth::user()->id);
+            $jumlahPenghuni = Resident::all()->where('kost_id', $kostdata->id);
+
+            // dd($jumlahPenghuni);
+            if ($kost == null) {
+                $status = "off";
+            } else {
+                $status = "on";
+            }
+
+            return view('dashboard', [
+                "title" => "Dashboard",
+                "status" => $status,
+                "kost" => $kost,
+                "jumlahKamar" => $jumlahKamar,
+                "jumlahPenghuni" => $jumlahPenghuni,
+            ]);
+        }
     }
 }
