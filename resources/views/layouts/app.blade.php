@@ -14,10 +14,10 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    @if ($judul == "Detail Kost")
+    {{-- @if ($judul != "Detail Kost")
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <!-- jsFiddle will insert css and js -->
-    @endif
+    @endif --}}
 
     <!-- Fonts -->
     {{--
