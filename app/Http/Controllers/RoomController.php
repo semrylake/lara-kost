@@ -31,7 +31,8 @@ class RoomController extends Controller
         if ($kost == null) {
             return redirect('/home');
         }
-        $room = Room::all()->where('kost_id', Auth::user()->id);
+        $room = Room::all()->where('kost_id', $kost->id);
+        // dd($room);
         return view('view_room.index', [
             "title" => "Kamar",
             // "kamar" => $room,
