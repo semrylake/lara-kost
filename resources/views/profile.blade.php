@@ -31,7 +31,7 @@
         <div class="col-md-4">
             @if(count($kost) == 1)
             @foreach ($kost as $a)
-            <img src="storage\{{ $a->foto }}" class=" p-3 img-fluid rounded-start" alt="...">
+            <img src="{{ asset('storage/'.$a->foto) }}" class=" p-3 img-fluid rounded-start" alt="...">
             @endforeach
             @else
             <img src="assets\logo\cs2.png" class="img-fluid rounded-start" alt="...">

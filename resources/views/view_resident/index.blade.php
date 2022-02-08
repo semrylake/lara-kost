@@ -56,6 +56,7 @@
                         <td>{{ $a->tempat_lahir }}, {{ $a->tgl_lahir }}</td>
                         <td>{{ $a->tlpn }}</td>
                         <td>
+
                             @if ($a->foto)
                             <img class="img-fluid rounded " style="height: 100px; width: 100px;"
                                 src="{{ asset('storage/'.$a->foto) }}" />
