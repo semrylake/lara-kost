@@ -21,7 +21,7 @@
 
 
     <div class="card-header py-3">
-        <h4 class="m-0 font-weight-bold text-dark">Daftar Kamar</h4>
+        <h4 class="m-0 font-weight-bold text-dark">Daftar Fasilitas</h4>
     </div>
     <div class="card-body">
         {{-- <a class="btn btn-info" href="/add-regulation">

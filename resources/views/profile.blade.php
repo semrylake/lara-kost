@@ -25,6 +25,8 @@
 </div>
 @endif
 
+<div class="map"></div>
+
 <div class="card mb-3 shadow">
 
     <div class="row g-0 p-5">
@@ -38,6 +40,7 @@
             @endif
         </div>
         <div class="col-md-8">
+
 
             <div class="card-body">
                 <h3 class="card-title">Informasi Kost</h3>
@@ -64,28 +67,11 @@
         function showPosition(position) {
             const lat = position.coords.latitude;
             const long = position.coords.longitude;
-            // console.log("Latitude: " + lat);
-            // console.log("Longitude: " + long);
+            console.log("Latitude: " + lat);
+            console.log("Longitude: " + long);
             document.getElementById("latitude").value = lat;
             document.getElementById("longtitude").value = long;
         }
-    // if ('geolocation' in navigator) {
-    //     console.log('Supports HTML geolocation API')va;
-
-    //     (function () {
-    //         var onSuccess = function (location) {
-    //                 console.log('User location', location);
-
-    //                 var userLat = location.coords.latitude,
-    //                     userLon = location .coords.longitude;
-    //             },
-    //             onError = function (code, message) {
-    //                 console.log('Gelocation error', code, message);
-    //             };
-
-    //         navigator.geolocation.getCurrentPosition(onSuccess, onError);
-    //     })();
-    // }
 </script>
 
 <script>

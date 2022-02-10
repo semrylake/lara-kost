@@ -14,7 +14,7 @@
 
 <div class="card mt-3 border shadow">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold">Form Tambah Peraturan Kost</h6>
+        <h6 class="m-0 font-weight-bold">Form Tambah Fasilitas</h6>
     </div>
     <form class="form-horizontal" action="/addFacility" method="post" enctype="multipart/form-data">
         @csrf

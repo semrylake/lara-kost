@@ -24,19 +24,19 @@ class DatabaseSeeder extends Seeder
             'name' => 'Semry Lake',
             'email' => 'jufentosemry@gmail.com',
             'level' => 'operator',
-            'password' => bcrypt('12345678'),
-            'p_user' => '12345678',
+            'password' => bcrypt('23117027'),
+            'p_user' => '23117027',
             'email_verified_at' => '2021-10-16 18:28:59',
         ]);
 
-        User::create([
-            'name' => 'Jufento Lake',
-            'email' => 'lakejufento@gmail.com',
-            'level' => 'operator',
-            'password' => bcrypt('12345678'),
-            'p_user' => '12345678',
-            'email_verified_at' => '2021-10-16 18:28:59',
-        ]);
+        // User::create([
+        //     'name' => 'Jufento Lake',
+        //     'email' => 'lakejufento@gmail.com',
+        //     'level' => 'operator',
+        //     'password' => bcrypt('12345678'),
+        //     'p_user' => '12345678',
+        //     'email_verified_at' => '2021-10-16 18:28:59',
+        // ]);
 
         // for ($i = 0; $i < 20; $i++) {
         //     User::create([

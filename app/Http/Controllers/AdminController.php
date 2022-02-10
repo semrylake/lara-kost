@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\{Room, User, Galeri, Kost, Facility, Regulation, Resident, ImageRoom};
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -33,7 +34,7 @@ class AdminController extends Controller
     }
     public function admin_user()
     {
-        $users = User::all();
+        $users = DB::table('users')->orderBy('id', 'desc')->get();
         $data = [
             'users' => $users,
         ];
@@ -154,5 +155,17 @@ class AdminController extends Controller
         Storage::delete($gambar->foto);
         ImageRoom::destroy($room);
         return redirect('/admin-galeri-foto-kamar')->with('del_msg', 'Gambar berhasil dihapus.');
+    }
+
+    public function destroy_kost_admin($slug)
+    {
+        $datakost = Kost::all()->where('slug', $slug)->first();
+        $galeri = Galeri::all()->where('id', $datakost->id)->first();
+        foreach ($galeri as $a) {
+            Storage::delete($a->foto);
+        }
+        Storage::delete($datakost->foto);
+        DB::table('kosts')->where('id', $datakost->id)->delete();
+        return redirect('/admin-kost')->with('del_msg', 'Data berhasil dihapus.');
     }
 }

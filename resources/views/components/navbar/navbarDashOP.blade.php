@@ -27,13 +27,13 @@
                         href="javascript:void(0)" data-sidebartype="mini-sidebar"><i
                             class="mdi mdi-menu font-24"></i></a></li>
 
-                <li class="nav-item search-box"> <a class="nav-link waves-effect waves-dark"
+                {{-- <li class="nav-item search-box"> <a class="nav-link waves-effect waves-dark"
                         href="javascript:void(0)"><i class="ti-search"></i></a>
                     <form class="app-search position-absolute">
                         <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i
                                 class="ti-close"></i></a>
                     </form>
-                </li>
+                </li> --}}
             </ul>
 
             <ul class="navbar-nav float-right">

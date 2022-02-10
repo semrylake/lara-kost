@@ -59,8 +59,14 @@
                         <td>
                             <a href="/admin-detailKost/{{ $a->slug }}" class="btn btn-sm btn-success mt-1 mb-1"><i
                                     class="fas fa-eye"></i> Detail</a>
-
-
+                            <form action="/delete-kost-admin/{{ $a->slug }}" method="post" class="d-inline">
+                                @method('delete')
+                                @csrf
+                                <button type="submit" title="Hapus" class="btn-sm btn btn-danger "
+                                    onclick="return confirm('Anda yakin ingin menghapus data ini??');"><i
+                                        class=" fas fa-trash"></i> Hapus
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @empty

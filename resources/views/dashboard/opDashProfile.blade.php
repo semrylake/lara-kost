@@ -8,6 +8,9 @@
     <!-- Custom CSS -->
     <link href="{!! asset('assets/bts4/dist/css/style.min.css') !!} " rel="stylesheet">
 
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
+
 
 </head>
 
