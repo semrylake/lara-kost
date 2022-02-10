@@ -80,3 +80,8 @@ Route::delete('/delete-imageGaleri-admin/{slug}', [AdminController::class, 'dest
 Route::get('/admin-galeri-foto-kamar', [AdminController::class, 'admin_galeri_foto_kamar'])->name('admin_galeri_foto_kamar')->middleware(['auth', 'verified']);
 Route::delete('/delete-imageGaleri-kamar-admin/{slug}', [AdminController::class, 'destroy_foto_kamar'])->name('destroy_foto_kamar')->middleware(['auth', 'verified']);
 Route::delete('/delete-kost-admin/{slug}', [AdminController::class, 'destroy_kost_admin'])->name('destroy_kost_admin')->middleware(['auth', 'verified']);
+
+Route::get('/create-symbolic', function () {
+    symlink(storage_path('/app/public'), public_path('storage'));
+    echo "symlink Created, Thanks";
+});
