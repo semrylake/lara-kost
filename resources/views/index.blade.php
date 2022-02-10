@@ -70,7 +70,8 @@
         <div class="col-sm-2">
             <a href="/kost/{{ $a->slug }}" class="text-dark" style="text-decoration: none;">
                 <div class="card shadow rounded p-2" style=" height: 100%;">
-                    <img src="{!! asset('storage/'.$a->foto) !!}" class="card-img-top" height="100px">
+                    {{-- <img src="{!! asset('storage/'.$a->foto) !!}" class="card-img-top" height="100px"> --}}
+                    <img src="storage/{{ $a->foto }}" class="card-img-top" height="100px">
                     <div class="card-body" style="height: 50%">
                         <strong style="font-size: 1em">{{$a->namaKost}}</strong>
                         {{-- <strong style="font-size: 1em">Rp.{{number_format($a->harga, 0, ',',

@@ -82,6 +82,6 @@ Route::delete('/delete-imageGaleri-kamar-admin/{slug}', [AdminController::class,
 Route::delete('/delete-kost-admin/{slug}', [AdminController::class, 'destroy_kost_admin'])->name('destroy_kost_admin')->middleware(['auth', 'verified']);
 
 Route::get('/create-symbolic', function () {
-    symlink(storage_path('/app/public'), public_path('storage'));
+    symlink(storage_path('app/public'), public_path('storage'));
     echo "symlink Created, Thanks";
 });
