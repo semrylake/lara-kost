@@ -59,21 +59,19 @@
 
                             @if ($a->foto)
                             <img class="img-fluid rounded " style="height: 100px; width: 100px;"
-                                src="{{ asset('storage/'.$a->foto) }}" />
+                                src="/foto-penghuni-kost/{{ $a->foto }}" />
                             @else
                             @if ($a->jk == "Laki-laki")
-                            <img class="img-fluid rounded " style="width: 100px;"
-                                src="{{ asset('storage/avatar/male.png') }}" />
+                            <img class="img-fluid rounded " style="width: 100px;" src="/img/avatar/male.png" />
                             @else
-                            <img class="img-fluid rounded " style=" width: 100px;"
-                                src="{{ asset('storage/avatar/female.png') }}" />
+                            <img class="img-fluid rounded " style=" width: 100px;" src="/img/avatar/female.png" />
                             @endif
 
                             @endif
                         </td>
                         <td>
-                            <a href="/edit-resident/{{ $a->slug }}" class="btn btn-sm btn-warning mt-1 mb-1"><i
-                                    class="fas fa-edit"></i> Edit</a>
+                            {{-- <a href="/edit-resident/{{ $a->slug }}" class="btn btn-sm btn-warning mt-1 mb-1"><i
+                                    class="fas fa-edit"></i> Edit</a> --}}
                             <form action="/delete-resident/{{ $a->slug }}" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf

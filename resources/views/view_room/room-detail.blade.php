@@ -62,7 +62,7 @@
                     <div class="el-card-item">
                         <div class="el-card-avatar el-overlay-1">
                             <img class="img-fluid rounded " style="height: 150px"
-                                src="{{ asset('storage/'.$a->foto) }}" />
+                                src="/foto-kamar-kost/{{ $a->foto }}" />
                             <div class="el-overlay">
                                 <ul class="list-style-none el-info">
                                     <li class="el-item">

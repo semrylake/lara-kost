@@ -33,12 +33,12 @@
             @foreach ($galeri as $a)
             @if ($no == 1)
             <div class="carousel-item active">
-                <img src="{!! asset('storage/'.$a->foto) !!}" style="width: 100%; height: 400px;" alt="..."
+                <img src="/foto-galeri-kost/{{ $a->foto }}" style="width: 100%; height: 400px;" alt="..."
                     class="img-fluid rounded">
             </div>
             @else()
             <div class="carousel-item">
-                <img src="{!! asset('storage/'.$a->foto) !!}" style="width: 100%; height: 400px;" alt="..."
+                <img src="/foto-galeri-kost/{{ $a->foto }}" style="width: 100%; height: 400px;" alt="..."
                     class="img-fluid rounded">
 
             </div>
@@ -123,7 +123,7 @@
                     <thead>
                         <tr align="center">
                             <th>No</th>
-                            <th>Status</th>
+                            {{-- <th>Status</th> --}}
                             <th>No. Kamar</th>
                             <th>Harga</th>
                             <th>Ukuran</th>
@@ -135,16 +135,30 @@
                         @forelse ($kamar as $a)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            @forelse ($penghuni as $item )
+                            {{-- @php
+                            $idroom = '';
+                            @endphp
+                            @foreach ($penghuni as $item )
 
                             @if ($item->room_id == $a->id)
+                            @php
+                            $idroom = $item->room_id;
+                            @endphp
+                            @if ($idroom == $item->room_id)
                             <td class="text-danger fw-bold">Sudah disewa</td>
+                            @php
+                            $idroom ='';
+                            @endphp
+
+                            @endif
                             @else
                             <td class="text-success fw-bold">Masih kosong</td>
                             @endif
-                            @empty
+                            {{-- @empty
                             <td class="text-success fw-bold">Masih kosong</td>
-                            @endforelse
+                            @endforeach --}}
+
+
                             <td>{{ $a->kode_kamar }}</td>
                             <td>Rp.{{ number_format($a->harga , 0, ',', '.')}}</td>
                             <td>{{ number_format($a->ukuran , 0, ',', '.')}} m<sup>2</sup></td>

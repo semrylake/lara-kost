@@ -144,7 +144,7 @@
             <div class="form-group">
                 <label for="foto" class="control-label col-form-label">Foto</label>
                 @if ($resident->foto)
-                <img class="img-preview mb-2 img-fluid col-sm-2" src="{{ asset('storage/'.$resident->foto) }}">
+                <img class="img-preview mb-2 img-fluid col-sm-2" src="/foto-penghuni-kost/{{ $resident->foto }}">
                 @else
                 <img class="img-preview mb-2 img-fluid col-sm-2">
                 @endif

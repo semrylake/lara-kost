@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class ResidentController extends Controller
 {
@@ -85,7 +87,11 @@ class ResidentController extends Controller
         $validate['kost_id'] = $kost->id;
 
         if ($request->file('foto')) {
-            $validate['foto'] = $request->file('foto')->store('resident-image');
+            $file = Request()->foto;
+            $fileName = Str::random(20)  . '.' . $file->extension();
+            $file->move(public_path('foto-penghuni-kost'), $fileName);
+            // $validate['foto'] = $request->file('foto')->store('resident-image');
+            $validate['foto'] = $fileName;
         }
 
         Resident::create($validate);
@@ -147,8 +153,9 @@ class ResidentController extends Controller
     public function destroy($a)
     {
         $resident = $this->Resident->detailResident($a);
+        File::delete('foto-penghuni-kost/' . $resident->foto);
         DB::table('residents')->where('slug', $a)->delete();
-        Storage::delete($resident->foto);
+        // Storage::delete($resident->foto);
         return redirect('/resident')->with('del_msg', 'Data berhasil dihapus.');
     }
     public function checkSlug(Request $request)

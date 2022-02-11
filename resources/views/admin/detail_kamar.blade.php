@@ -34,12 +34,12 @@
             @foreach ($images_room as $a)
             @if ($no == 1)
             <div class="carousel-item active">
-                <img src="{!! asset('storage/'.$a->foto) !!}" style="width: 100%; height: 450px;" alt="..."
+                <img src="/foto-kamar-kost/{{ $a->foto }}" style="width: 100%; height: 450px;" alt="..."
                     class="img-fluid rounded">
             </div>
             @else()
             <div class="carousel-item">
-                <img src="{!! asset('storage/'.$a->foto) !!}" style="width: 100%; height: 450px;" alt="..."
+                <img src="/foto-kamar-kost/{{ $a->foto }}" style="width: 100%; height: 450px;" alt="..."
                     class="img-fluid rounded">
 
             </div>

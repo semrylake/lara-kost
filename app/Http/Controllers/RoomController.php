@@ -11,6 +11,8 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
@@ -113,10 +115,17 @@ class RoomController extends Controller
             'foto' => 'required|image|file|max:3024',
         ]);
         if ($request->file('foto')) {
-            $validateImages['foto'] = $request->file('foto')->store('rooms-image');
+            $file = Request()->foto;
+            $fileName = Str::random(20) . '.' . $file->extension();
+            $file->move(public_path('foto-kamar-kost'), $fileName);
+
+            // $validateImages['foto'] = $request->file('foto')->store('rooms-image');
         }
 
-        ImageRoom::create($validateImages);
+        ImageRoom::create([
+            'foto' =>  $fileName,
+            'room_id' =>  $request->room_id,
+        ]);
         return redirect()->route('detail', $request->slug)->with('psn', 'Gambar berhasil disimpan.');
     }
 
@@ -181,7 +190,8 @@ class RoomController extends Controller
         $dataroom = $this->Room->detail($room);
         $fotokamar = ImageRoom::all()->where('room_id', $dataroom->id);
         foreach ($fotokamar as $a) {
-            Storage::delete($a->foto);
+            // Storage::delete($a->foto);
+            File::delete('foto-profil-kost/' . $a->foto);
         }
         DB::table('rooms')->where('slug', $room)->delete();
         return redirect('/room')->with('del_msg', 'Data berhasil dihapus.');
@@ -189,7 +199,8 @@ class RoomController extends Controller
     public function destroyImageRoom(Request $request, $room)
     {
         $gambar = ImageRoom::all()->where('id', $room)->first();
-        Storage::delete($gambar->foto);
+        // dd($gambar);
+        File::delete('foto-kamar-kost/' . $gambar->foto);
         ImageRoom::destroy($room);
 
         // DB::table('image_rooms')->where('id', $room)->delete();

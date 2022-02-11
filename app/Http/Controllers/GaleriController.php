@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class GaleriController extends Controller
 {
@@ -52,16 +54,21 @@ class GaleriController extends Controller
     public function store(Request $request)
     {
         $kost = DB::table('kosts')->where('user_id', Auth::user()->id)->first();
-
         $validate = $request->validate([
             'foto' => 'required|image|file|max:3024',
         ]);
         $validate['kost_id'] = $kost->id;
         if ($request->file('foto')) {
-            $validate['foto'] = $request->file('foto')->store('kost-galeri');
+            // $validate['foto'] = $request->file('foto')->store('kost-galeri');
+            $file = Request()->foto;
+            $fileName = Str::random(20) . '.' . $file->extension();
+            $file->move(public_path('foto-galeri-kost'), $fileName);
         }
 
-        Galeri::create($validate);
+        Galeri::create([
+            'foto' =>  $fileName,
+            'kost_id' =>  $kost->id,
+        ]);
         return redirect('/galeri')->with('psn', 'Gambar berhasil disimpan.');
     }
 
@@ -108,7 +115,8 @@ class GaleriController extends Controller
     public function destroy($slug)
     {
         $gambar = Galeri::all()->where('id', $slug)->first();
-        Storage::delete($gambar->foto);
+        File::delete('foto-galeri-kost/' . $gambar->foto);
+        // Storage::delete($gambar->foto);
         Galeri::destroy($slug);
         return redirect('/galeri')->with('del', 'Gambar berhasil dihapus.');
     }

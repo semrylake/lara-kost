@@ -10,6 +10,7 @@ use Adrianorosa\GeoLocation\GeoLocation;
 use App\Models\User;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class KostController extends Controller
@@ -86,7 +87,10 @@ class KostController extends Controller
         // $validate['latitude'] =  $request->latitude;
         // $validate['longitude'] =  $request->longtitude;
         if ($request->file('foto')) {
-            $validate['foto'] = $request->file('foto')->store('foto-profil-kost');
+            // $validate['foto'] = $request->file('foto')->store('foto-profil-kost');
+            $file = Request()->foto;
+            $fileName = Request()->slug . '.' . $file->extension();
+            $file->move(public_path('foto-profil-kost'), $fileName);
         }
         // Kost::create($validate);
         Kost::create([
@@ -98,7 +102,7 @@ class KostController extends Controller
             'tlpn' => $request->telepon,
             'latitude' => $request->latitude,
             'longitude' => $request->longtitude,
-            'foto' =>  $validate['foto'],
+            'foto' =>  $fileName,
         ]);
         return redirect('/profile')->with('psn', 'Data berhasil disimpan.');
     }
@@ -152,10 +156,20 @@ class KostController extends Controller
         ]);
         $foto = "";
         if ($request->file('foto')) {
-            $foto = $request->file('foto')->store('foto-profil-kost');
-            Storage::delete($request->fotolama);
+
+            $filelama = $request->fotolama;
+            // $file_path = public_path() . "/foto-profil-kost/" . $filelama;
+            // unlink($file_path);
+            File::delete('foto-profil-kost/' . $request->fotolama);
+
+            $file = Request()->foto;
+            $fileName = Request()->slug . '.' . $file->extension();
+            $file->move(public_path('foto-profil-kost'), $fileName);
+
+            // Storage::delete($request->fotolama);
+            // dd($request->fotolama);
         } else {
-            $foto = $request->fotolama;
+            $fileName = $request->fotolama;
         }
 
         $mydata = [
@@ -166,7 +180,7 @@ class KostController extends Controller
             'tlpn' => $request->telepon,
             'latitude' => $request->latitude,
             'longitude' => $request->longtitude,
-            'foto' =>  $foto,
+            'foto' =>  $fileName,
         ];
         $this->Kosts->updateprofile($slug, $mydata);
         return redirect('/profile')->with('update_msg', 'Data berhasil diupdate.');

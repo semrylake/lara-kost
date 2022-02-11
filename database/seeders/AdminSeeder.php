@@ -18,16 +18,16 @@ class AdminSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'level' => 'admin',
-            'password' => bcrypt('12345678'),
-            'p_user' => '12345678',
+            'password' => bcrypt('23117027'),
+            'p_user' => '23117027',
             'email_verified_at' => '2021-10-16 18:28:59',
         ]);
         User::create([
             'name' => 'Admin',
             'email' => 'yohan@example.com',
             'level' => 'admin',
-            'password' => bcrypt('12345678'),
-            'p_user' => '12345678',
+            'password' => bcrypt('23117061'),
+            'p_user' => '23117061',
             'email_verified_at' => '2021-10-16 18:28:59',
         ]);
     }

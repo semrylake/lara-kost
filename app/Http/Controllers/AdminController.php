@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\{Room, User, Galeri, Kost, Facility, Regulation, Resident, ImageRoom};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -145,14 +146,15 @@ class AdminController extends Controller
     public function destroy_foto_kost($slug)
     {
         $gambar = Galeri::all()->where('id', $slug)->first();
-        Storage::delete($gambar->foto);
+        File::delete('foto-galeri-kost/' . $gambar->foto);
+        // Storage::delete($gambar->foto);
         Galeri::destroy($slug);
         return redirect('/admin-galeri-foto-kost')->with('del_msg', 'Gambar berhasil dihapus.');
     }
     public function destroy_foto_kamar($room)
     {
         $gambar = ImageRoom::all()->where('id', $room)->first();
-        Storage::delete($gambar->foto);
+        File::delete('foto-kamar-kost/' . $gambar->foto);
         ImageRoom::destroy($room);
         return redirect('/admin-galeri-foto-kamar')->with('del_msg', 'Gambar berhasil dihapus.');
     }
@@ -161,10 +163,13 @@ class AdminController extends Controller
     {
         $datakost = Kost::all()->where('slug', $slug)->first();
         $galeri = Galeri::all()->where('id', $datakost->id)->first();
-        foreach ($galeri as $a) {
-            Storage::delete($a->foto);
+        if ($galeri != null) {
+            # code...
+            foreach ($galeri as $a) {
+                File::delete('foto-galeri-kost/' . $a->foto);
+            }
         }
-        Storage::delete($datakost->foto);
+        File::delete('foto-profil-kost/' . $datakost->foto);
         DB::table('kosts')->where('id', $datakost->id)->delete();
         return redirect('/admin-kost')->with('del_msg', 'Data berhasil dihapus.');
     }
