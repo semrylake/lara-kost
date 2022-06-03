@@ -2,14 +2,12 @@
 
 @section('content')
 <div id="map" class="border rounded shadow" style="width: 100%; height: 350px;"></div>
-
 <div class="row mt-3">
     <div id="carouselExampleDark" class="carousel carousel-dark slide col-md-8 mb-2" data-bs="carousel">
         <div class="carousel-indicators">
             @php
             $no = 1;
             @endphp
-
             @foreach ($galeri as $a)
             @if ($no == 1)
             <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ $no-1 }}" class="active"
@@ -18,18 +16,15 @@
             <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ $no-1 }}"
                 aria-label="Slide {{ $no }}"></button>
             @endif
-
             @php
             $no++;
             @endphp
             @endforeach
-
         </div>
         <div class="carousel-inner">
             @php
             $no = 1;
             @endphp
-
             @foreach ($galeri as $a)
             @if ($no == 1)
             <div class="carousel-item active">
@@ -40,15 +35,12 @@
             <div class="carousel-item">
                 <img src="/foto-galeri-kost/{{ $a->foto }}" style="width: 100%; height: 400px;" alt="..."
                     class="img-fluid rounded">
-
             </div>
             @endif
-
             @php
             $no++;
             @endphp
             @endforeach
-
         </div>
     </div>
     <div class="detail col-md-4 border shadow rounded">
@@ -69,9 +61,7 @@
             </p>
         </div>
     </div>
-
 </div>
-
 <div class="row mt-3">
     <div class="col-md-8">
         <div class="card shadow ">
@@ -106,8 +96,6 @@
         </div>
     </div>
 </div>
-
-
 <div class="mt-3" id="kamar">
     <div class="card shadow mb-4">
         <div class="card-header">
@@ -124,9 +112,10 @@
                         <tr align="center">
                             <th>No</th>
                             {{-- <th>Status</th> --}}
-                            <th>No. Kamar</th>
+                            {{-- <th>No. Kamar</th> --}}
                             <th>Harga</th>
                             <th>Ukuran</th>
+                            <th>Keterangan</th>
                             <th>Opsi</th>
                         </tr>
                     </thead>
@@ -159,14 +148,21 @@
                             @endforeach --}}
 
 
-                            <td>{{ $a->kode_kamar }}</td>
+                            {{-- <td>{{ $a->kode_kamar }}</td> --}}
                             <td>Rp.{{ number_format($a->harga , 0, ',', '.')}}</td>
                             <td>{{ number_format($a->ukuran , 0, ',', '.')}} m<sup>2</sup></td>
-
-
+                            <td>{{ $a->keterangan }}</td>
                             <td>
                                 <a href="/detail-kamar/{{ $a->slug }}" class="btn btn-sm btn-success mt-1 mb-1">
                                     <i class="fas fa-eye"></i> Detail</a>
+                                @if ($a->keterangan == 'Masih Kosong')
+                                <a href="/pesan-kamar/{{ $a->slug }}" class="btn text-white btn-sm btn-info"><i
+                                        class="fas fa-shopping-cart"></i>
+                                    Pesan</a>
+                                {{-- @else
+                                <button class="btn text-white btn-sm btn-info">Sudah Disewa</button> --}}
+                                @endif
+
                             </td>
                         </tr>
                         @empty

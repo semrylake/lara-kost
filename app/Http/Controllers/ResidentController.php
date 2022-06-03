@@ -24,6 +24,7 @@ class ResidentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $kost = Kost::all()->where('user_id', Auth::user()->id)->first();
@@ -71,8 +72,9 @@ class ResidentController extends Controller
             'slug' => 'required',
             'jk' => 'required',
             'tlpn' => 'required',
-            'tempat_lahir' => 'required',
             'tgl_lahir' => 'required|date_format:d/m/Y',
+            'tempat_lahir' => 'required',
+            'status' => 'required',
             'foto' => 'image|file|max:1024',
         ], [
             'name.required' => 'Kolom ini harus diisi !!',
@@ -80,6 +82,7 @@ class ResidentController extends Controller
             'jk.required' => 'Kolom ini harus diisi !!',
             'tempat_lahir.required' => 'Kolom ini harus diisi !!',
             'tlpn.required' => 'Kolom ini harus diisi !!',
+            'status.required' => 'Kolom ini harus diisi !!',
             'tgl_lahir.date_format' => 'Format tanggal tidak sesuai !!',
         ]);
 
@@ -139,9 +142,46 @@ class ResidentController extends Controller
      * @param  \App\Models\Resident  $resident
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $resident)
+    public function update(Request $request, $slug)
     {
-        dd($request->all());
+        $request->validate([
+            'name' => 'required',
+            'room_id' => 'required',
+            'slug' => 'required',
+            // 'tgl_lahir' => 'date_format:d/m/Y',
+            'foto' => 'image|file|max:1024',
+        ]);
+        if ($request->tgl_lahir) {
+            $request->validate([
+                'tgl_lahir' => 'date_format:d/m/Y',
+            ]);
+        }
+        if ($request->file('foto')) {
+            $file = Request()->foto;
+            $fileName = Str::random(20)  . '.' . $file->extension();
+            $file->move(public_path('foto-penghuni-kost'), $fileName);
+            // $validate['foto'] = $request->file('foto')->store('resident-image');
+            $foto = $fileName;
+        } else {
+            $foto = $request->fotolama;
+        }
+        $dataPenghuni = Resident::where('slug', $slug)->first();
+        $data = [
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'room_id' => $request->room_id,
+            'jk' => $request->jk,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tgl_lahir' => $request->tgl_lahir,
+            'status' => $request->status,
+            'tlpn' => $request->tlpn,
+            'foto' => $foto,
+        ];
+        // dd($data);
+
+        $this->Resident->updatePenghuni($dataPenghuni->id, $data);
+
+        return redirect()->route('edit', $request->slug)->with('upt', 'Data berhasil diubah.');
     }
 
     /**

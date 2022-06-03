@@ -13,7 +13,7 @@
     </div>
     <div class="carousel-inner">
         <div style="height: 500px; background: black; overflow: hidden;" class="carousel-item active">
-            <img src="{!! asset('assets/logo/perumahan.jpeg') !!}"
+            <img src="{!! asset('assets/logo/perumahan.jpg') !!}"
                 style="width: 100%; height: 100%; opacity: 0.9; object-fit: cover" alt="..." class="d-block img-fluid">
             <div class="carousel-caption d-none d-md-block">
                 <h4 class=" fw-bolder text-white">CARI DAN TEMUKAN TEMPAT TINGGAL SESUAI KEINGINAN ANDA</h4>
@@ -25,7 +25,7 @@
                 style="width: 100%; height: 100%; opacity: 0.9; object-fit: cover" alt="..." class="d-block img-fluid">
             <div class="carousel-caption d-none d-md-block">
                 <h4 class="fw-bolder text-white mt-5">TEMUKAN KAMAR YANG NYAMAN UNTUK ANDA</h4>
-                <a href="/all-rooms" class="btn btn-info text-white fw-bolder">CARI KAMAR</a>
+                <a href="/all-kosts" class="btn btn-info text-white fw-bolder">CARI KAMAR</a>
             </div>
         </div>
         <div style="height: 500px;  background: black; overflow: hidden;" class="carousel-item">
@@ -85,10 +85,5 @@
         @endforeach
     </div>
 </div>
-
-
-
-
-
 
 @endsection

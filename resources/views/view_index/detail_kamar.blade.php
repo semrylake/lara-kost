@@ -55,9 +55,13 @@
     <div class="detail col-md-4 border shadow rounded">
         <h1 class="text-secondary">No. Kamar : <small>{{ $kamar->kode_kamar }}</small>
         </h1>
-        <a href="/kost/{{ $kost->slug }}">
-            <h4>{{ $kost->namaKost }}</h4>
-        </a>
+        <div class="">
+            <a class="text-decoration-none" href="/kost/{{ $kost->slug }}">
+                <h4>{{ $kost->namaKost }}</h4>
+            </a>
+            <a href="/pesan-kamar/{{ $kamar->slug }}" class="btn btn-success"><i class="fas fa-shopping-cart"></i>
+                Pesan Sekarang</a>
+        </div>
 
         <hr>
         <div class="alert alert-secondary" role="alert">

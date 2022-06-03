@@ -38,6 +38,23 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => '2021-10-16 18:28:59',
         ]);
 
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'level' => 'admin',
+            'password' => bcrypt('23117027'),
+            'p_user' => '23117027',
+            'email_verified_at' => '2021-10-16 18:28:59',
+        ]);
+        User::create([
+            'name' => 'Admin',
+            'email' => 'yohan@example.com',
+            'level' => 'admin',
+            'password' => bcrypt('23117061'),
+            'p_user' => '23117061',
+            'email_verified_at' => '2021-10-16 18:28:59',
+        ]);
+
         // for ($i = 0; $i < 20; $i++) {
         //     User::create([
         //         'name' => 'Operator ' + $i,

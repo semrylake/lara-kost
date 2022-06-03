@@ -6,6 +6,7 @@ use App\Models\Facility;
 use App\Models\Galeri;
 use App\Models\ImageRoom;
 use App\Models\Kost;
+use App\Models\PesanKamar;
 use App\Models\Regulation;
 use App\Models\Resident;
 use App\Models\Room;
@@ -76,23 +77,35 @@ class IndexController extends Controller
     {
         // $kost = Kost::latest();
         $kost = DB::table('kosts');
-        // dd($kost->get());
+
+        // if (request('search')) {
+        //     // asli
+        //     $kost
+        // }
         if (request('search')) {
             // asli
             $kost
                 ->join('facilities', 'kosts.id', '=', 'facilities.kost_id')
+                ->join('rooms', 'kosts.id', '=', 'rooms.kost_id')
                 ->select(
+                    'kosts.id',
                     'kosts.namaKost',
                     'kosts.alamat',
                     'kosts.foto',
                     'kosts.tlpn',
                     'kosts.slug',
                     'facilities.fasilitas',
-                )->orderBy('kosts.namaKost')
+                    'rooms.harga',
+                )->distinct(
+                    'kosts.namaKost',
+                )
+                ->orderBy('kosts.namaKost')
                 ->where('kosts.namaKost', 'like', '%' . request('search') . '%')
                 ->orWhere('kosts.alamat', 'like', '%' . request('search') . '%')
-                ->orWhere('facilities.fasilitas', 'like', '%' . request('search') . '%');
+                ->orWhere('facilities.fasilitas', 'like', '%' . request('search') . '%')
+                ->orWhere('rooms.harga', 'like', '%' . request('search') . '%');
         }
+        // dd($kost->get());
 
         return view('all_kosts', [
             "judul" => "Semua Kost",
@@ -128,5 +141,42 @@ class IndexController extends Controller
             "judul" => "Semua Kamar",
             "rooms" => $rooms->get(),
         ]);
+    }
+    public function pesankamar($slug)
+    {
+        $datakamar = Room::all()->where('slug', $slug)->first();
+        $datakost = Kost::all()->where('id', $datakamar->kost_id)->first();
+        return view('view_index.pesan_kamar', [
+            "judul" => "Pesan Kamar",
+            "rooms" => $datakamar,
+            "kost" => $datakost,
+            "slug" => $slug,
+        ]);
+    }
+    public function pesankamarkost(Request $request)
+    {
+
+        $validate =  $request->validate([
+            'kost_id' => 'required',
+            'room_id' => 'required',
+            'namapemesan' => 'required',
+            'jk' => 'required',
+            'tlpn' => 'required',
+            'pekerjaan' => 'required',
+            'status' => 'required',
+            'emailpemesan' => 'required',
+            'jumlah' => 'required|numeric',
+        ], [
+            'namapemesan.required' => 'Kolom ini harus diisi !!',
+            'jk.required' => 'Kolom ini harus diisi !!',
+            'pekerjaan.required' => 'Kolom ini harus diisi !!',
+            'status.required' => 'Kolom ini harus diisi !!',
+            'emailpemesan.required' => 'Kolom ini harus diisi !!',
+            'jumlah.required' => 'Kolom ini harus diisi !!',
+        ]);
+        $validate['room_id'] = $request->kode;
+
+        PesanKamar::create($validate);
+        return redirect('/pesan-kamar/' . $request->slug)->with('psn', 'Data pemesan kamar anda telah dikirim. Silahkan menunggu informasi dari pemilik kost.');
     }
 }

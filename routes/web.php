@@ -15,7 +15,9 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 Route::get('/kost/{slug}', [IndexController::class, 'detailkost'])->name('detailkost')->middleware('guest');
 Route::get('/detail-kamar/{slug}', [IndexController::class, 'detailkamar'])->name('detailkamar')->middleware('guest');
 Route::get('/all-kosts', [IndexController::class, 'allkosts'])->name('allkosts')->middleware('guest');
-Route::get('/all-rooms', [IndexController::class, 'allrooms'])->name('allrooms')->middleware('guest');
+// Route::get('/all-rooms', [IndexController::class, 'allrooms'])->name('allrooms')->middleware('guest');
+Route::get('/pesan-kamar/{slug}', [IndexController::class, 'pesankamar'])->name('pesankamar')->middleware('guest');
+Route::post('/pesanKamarKost', [IndexController::class, 'pesankamarkost'])->name('pesankamarkost')->middleware('guest');
 
 
 //Kost
@@ -23,6 +25,11 @@ Route::get('/profile', [KostController::class, 'index'])->name('index')->middlew
 Route::get('/createSlug', [KostController::class, 'checkSlug'])->name('checkSlug')->middleware(['auth', 'verified']);
 Route::post('/addKost', [KostController::class, 'store'])->name('store')->middleware(['auth', 'verified']);
 Route::put('/updateProfile/{slug}', [KostController::class, 'update'])->name('update')->middleware(['auth', 'verified']);
+
+//Pesanan Kamar
+Route::get('/pesanan', [RoomController::class, 'pesanankamar_index'])->name('pesanankamar_index')->middleware(['auth', 'verified']);
+Route::delete('/delete-pesanan/{slug}', [RoomController::class, 'destroy_pesanan'])->name('destroy_pesanan')->middleware(['auth', 'verified']);
+Route::delete('/tambahkan-ke-penghuni/{slug}', [RoomController::class, 'pemesan_jadi_penghuni'])->name('pemesan_jadi_penghuni')->middleware(['auth', 'verified']);
 
 //Peraturan
 Route::get('/regulation', [RegulationController::class, 'index'])->name('index')->middleware(['auth', 'verified']);

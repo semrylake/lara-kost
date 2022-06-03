@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kost;
+use App\Models\PesanKamar;
 use App\Models\Resident;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -43,8 +44,9 @@ class HomeController extends Controller
         $jumlahKamar = $this->Kosts->jumlah_kost(Auth::user()->id);
         // $jumlahPenghuni = $this->Penghuni->jumlah_penghuni_group_by(Auth::user()->id);
         $jumlahPenghuni = Resident::all()->where('kost_id', $kostdata->id);
+        $jumlahPesanan = PesanKamar::all()->where('kost_id', $kostdata->id)->count();
 
-        // dd($jumlahPenghuni);
+        // dd($jumlahPesanan);
         if ($kost == null) {
             $status = "off";
         } else {
@@ -57,6 +59,7 @@ class HomeController extends Controller
             "kost" => $kost,
             "jumlahKamar" => $jumlahKamar,
             "jumlahPenghuni" => $jumlahPenghuni,
+            "jumlahPesanan" => $jumlahPesanan,
         ]);
     }
 }

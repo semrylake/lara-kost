@@ -27,6 +27,7 @@ class Resident extends Model
         'slug',
         'tempat_lahir',
         'tgl_lahir',
+        'status',
         'jk',
         'tlpn',
         'foto',
@@ -52,5 +53,9 @@ class Resident extends Model
             ->get();
 
         return $jumlahPenghuni;
+    }
+    public function updatePenghuni($id, $data)
+    {
+        DB::table('residents')->where('id', $id)->update($data);
     }
 }

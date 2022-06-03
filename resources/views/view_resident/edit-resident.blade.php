@@ -2,11 +2,11 @@
 
 @section('container')
 
-@if (session('psn'))
+@if (session('upt'))
 <div class="alert alert-success alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     <h5><i class="icon fas fa-check"></i> Success!</h5>
-    {{ session('psn') }}
+    {{ session('upt') }}
 </div>
 @endif
 
@@ -28,7 +28,7 @@
                 <input autofocus type="text" name="name" value="{{ old('name',$resident->name) }}"
                     class="form-control @error('name') is-invalid @enderror" id="name" autocomplete="off" required>
                 <input type="hidden" readonly class="form-control shadow @error('slug') is-invalid @enderror" id="slug"
-                    name="slug" value="{{ old('slug') }}" required>
+                    name="slug" value="{{ old('slug',$resident->slug) }}" required>
                 <div class="invalid-feedback text-danger">
                     @error('name')
                     {{ $message }}
@@ -129,7 +129,17 @@
                     </div>
                 </div>
             </div>
-
+            <div class="form-group">
+                <label for="status" class="control-label col-form-label">Status<sup
+                        class="text-danger">*</sup></label></label>
+                <input autofocus type="text" name="status" value="{{ old('status',$resident->status) }}"
+                    class="form-control @error('status') is-invalid @enderror" id="status" autocomplete="off" required>
+                <div class="invalid-feedback text-danger">
+                    @error('status')
+                    {{ $message }}
+                    @enderror
+                </div>
+            </div>
             <div class="form-group">
                 <label for="tlpn" class="control-label col-form-label">No. Telepon<sup
                         class="text-danger">*</sup></label></label>
@@ -141,6 +151,9 @@
                     @enderror
                 </div>
             </div>
+
+            <input type="hidden" name="fotolama" id="fotolama" value="{{ $resident->foto }}">
+
             <div class="form-group">
                 <label for="foto" class="control-label col-form-label">Foto</label>
                 @if ($resident->foto)
@@ -149,7 +162,7 @@
                 <img class="img-preview mb-2 img-fluid col-sm-2">
                 @endif
                 <input type="file" class=" form-control form-control-sm @error('foto') is-invalid @enderror" id="foto"
-                    name="foto" value="{{ old('foto') }}" onchange="previewImage()">
+                    name="foto" onchange="previewImage()">
                 <div class="invalid-feedback text-danger">
                     <div class="invalid-feedback text-danger">
                         @error('foto')

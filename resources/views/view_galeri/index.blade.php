@@ -31,19 +31,14 @@
                     @enderror
                 </div>
             </div>
-
             <button type="submit" style="height: 90%" id="savereg" class="col-md-2 mt-1 btn-sm btn btn-success">
                 <i class="fas fa-save"></i> Simpan
             </button>
         </div>
     </form>
-
 </div>
 <hr>
-
 <div class="row el-element-overlay">
-
-
     @forelse ($galerifoto as $a)
     <div class="col-lg-3 col-md-6">
         <div class="card">

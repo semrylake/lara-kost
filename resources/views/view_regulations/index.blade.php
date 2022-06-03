@@ -1,7 +1,5 @@
 @extends('dashboard.opDash')
-
 @section('container')
-
 @if (session('psn_update'))
 <div class="alert alert-success alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -16,10 +14,7 @@
     {{ session('del_msg') }}
 </div>
 @endif
-
 <div class="card shadow mb-4">
-
-
     <div class="card-header py-3">
         <h4 class="m-0 font-weight-bold text-dark">Daftar Peraturan</h4>
     </div>
@@ -42,7 +37,6 @@
                     </tr>
                 </thead>
                 <tbody align="center">
-
                     @forelse ($reg as $a)
                     <tr>
                         <td>{{ $loop->iteration }}</td>

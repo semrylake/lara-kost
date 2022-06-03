@@ -28,6 +28,16 @@
             </div>
         </div>
     </div>
+
+    <div class="col-md-6  col-lg-2 col-xlg-3">
+        <div class="card shadow card-hover">
+            <div class="box bg-warning text-center">
+                <h1 class="font-light text-white"><i class="mdi mdi-bell"></i></h1>
+                <h5 class="text-white">{{ $jumlahPesanan }}</h5>
+                <h6 class="text-white">Pesanan Kamar</h6>
+            </div>
+        </div>
+    </div>
 </div>
 
 

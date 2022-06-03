@@ -121,6 +121,17 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="status" class="control-label col-form-label">Status<sup
+                        class="text-danger">*</sup></label></label>
+                <input autofocus type="text" name="status" value="{{ old('status') }}"
+                    class="form-control @error('status') is-invalid @enderror" id="status" autocomplete="off" required>
+                <div class="invalid-feedback text-danger">
+                    @error('status')
+                    {{ $message }}
+                    @enderror
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="foto" class="control-label col-form-label">Foto</label>
                 <img class="img-preview mb-2 img-fluid col-sm-2">
                 <input type="file" class=" form-control form-control-sm @error('foto') is-invalid @enderror" id="foto"

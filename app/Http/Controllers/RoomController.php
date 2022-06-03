@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\FotoKamar;
 use App\Models\ImageRoom;
 use App\Models\Kost;
+use App\Models\PesanKamar;
+use App\Models\Resident;
 use App\Models\Room;
 use App\Models\User;
 use Cviebrock\EloquentSluggable\Services\SlugService;
@@ -84,7 +86,7 @@ class RoomController extends Controller
             'slug' => $request->slug,
             'harga' => $request->harga,
             'ukuran' => $request->ukuran,
-            'keterangan' => $request->keterangan . "-",
+            'keterangan' => $request->keterangan,
         ]);
         return redirect('/add-room')->with('psn', 'Data berhasil disimpan.');
     }
@@ -210,5 +212,42 @@ class RoomController extends Controller
     {
         $slug = SlugService::createSlug(Room::class, 'slug', $request->nama);
         return response()->json(['slug' => $slug]);
+    }
+
+
+    public function pesanankamar_index()
+    {
+        $kost = Kost::all()->where('user_id', Auth::user()->id)->first();
+        $pesanan = PesanKamar::where('kost_id', $kost->id)->get();
+
+        return view('view_room.pesanan', [
+            "title" => "Pesanan Kamar",
+            "pesanan" => $pesanan,
+        ]);
+    }
+    public function destroy_pesanan($slug)
+    {
+        DB::table('pesan_kamars')->where('id', $slug)->delete();
+        return redirect('/pesanan')->with('del_msg', 'Data berhasil dihapus.');
+    }
+    public function pemesan_jadi_penghuni($slug)
+    {
+        $datapenghuni = DB::table('pesan_kamars')->where('id', $slug)->first();
+        $datakamar = DB::table('rooms')->where('kode_kamar', $datapenghuni->room_id)->first();
+        Resident::create([
+            'kost_id' => $datapenghuni->kost_id,
+            'room_id' =>  $datakamar->id,
+            'name' => $datapenghuni->namapemesan,
+            'slug' => Str::random(10),
+            'jk' => $datapenghuni->jk,
+            'tlpn' => $datapenghuni->tlpn,
+            'status' => $datapenghuni->status,
+        ]);
+        $data = [
+            'keterangan' => 'Sudah Disewa'
+        ];
+        DB::table('rooms')->where('id', $datakamar->id)->update($data);
+        DB::table('pesan_kamars')->where('id', $slug)->delete();
+        return redirect('/pesanan')->with('pindahok', 'Data pemesan berhasil dipindahkan sebagai penghuni.');
     }
 }

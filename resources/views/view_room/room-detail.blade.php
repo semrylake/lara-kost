@@ -55,7 +55,6 @@
         <hr>
         <div class="row el-element-overlay">
 
-
             @forelse ($fotoKamar as $a)
             <div class="col-lg-3 col-md-6">
                 <div class="card">

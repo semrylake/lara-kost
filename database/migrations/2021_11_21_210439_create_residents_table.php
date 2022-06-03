@@ -24,6 +24,7 @@ class CreateResidentsTable extends Migration
             $table->string('jk')->nullable();
             $table->string('tgl_masuk')->nullable();
             $table->string('tlpn')->nullable();
+            $table->string('status')->nullable();
             $table->string('foto')->nullable();
             $table->timestamps();
         });

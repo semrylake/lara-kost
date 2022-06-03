@@ -40,6 +40,11 @@
                         <i class="mdi mdi-image-multiple"></i> Galeri
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pesanan" aria-expanded="false">
+                        <i class="mdi mdi-bell"></i> Pesanan Kamar
+                    </a>
+                </li>
             </ul>
         </nav>
 

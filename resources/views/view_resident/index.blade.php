@@ -41,6 +41,7 @@
                         <th>Jenis kelamin</th>
                         <th>Tempat, tanggal lahir</th>
                         <th>No. Tlpn</th>
+                        <th>Status</th>
                         <th>Foto</th>
                         <th>Opsi</th>
                     </tr>
@@ -55,6 +56,7 @@
                         <td>{{ $a->jk }}</td>
                         <td>{{ $a->tempat_lahir }}, {{ $a->tgl_lahir }}</td>
                         <td>{{ $a->tlpn }}</td>
+                        <td>{{ $a->status }}</td>
                         <td>
 
                             @if ($a->foto)
@@ -70,8 +72,8 @@
                             @endif
                         </td>
                         <td>
-                            {{-- <a href="/edit-resident/{{ $a->slug }}" class="btn btn-sm btn-warning mt-1 mb-1"><i
-                                    class="fas fa-edit"></i> Edit</a> --}}
+                            <a href="/edit-resident/{{ $a->slug }}" class="btn btn-sm btn-warning mt-1 mb-1"><i
+                                    class="fas fa-edit"></i> Edit</a>
                             <form action="/delete-resident/{{ $a->slug }}" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf
