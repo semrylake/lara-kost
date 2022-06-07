@@ -22,7 +22,8 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="name" class="control-label col-form-label">Kode Kamar</label>
-                <input autofocus type="text" name="name" value="{{ old('name',$room->kode_kamar) }}" class="form-control @error('name') is-invalid @enderror" id="name" autocomplete="off" required>
+                <input autofocus type="text" name="name" value="{{ old('name',$room->kode_kamar) }}"
+                    class="form-control @error('name') is-invalid @enderror" id="name" autocomplete="off" required>
                 <input type="hidden" readonly class="form-control shadow @error('slug') is-invalid @enderror" id="slug"
                     name="slug" value="{{ old('slug',$room->slug) }}" required>
                 <div class="invalid-feedback text-danger">
@@ -52,13 +53,35 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="keterangan" class="control-label col-form-label">Keterangan Kamar</label>
-                <input autofocus type="text" name="keterangan" value="{{ old('keterangan', $room->keterangan) }}"
-                    class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" autocomplete="off">
-                <div class="invalid-feedback text-danger">
-                    @error('keterangan')
-                    {{ $message }}
-                    @enderror
+                <label for="keterangan">Keterangan<sup class="text-danger">*</sup></label></label>
+                <div class="form-label-group">
+                    <select class=" form-control @error('keterangan') is-invalid @enderror" required name="keterangan"
+                        id="keterangan">
+                        {{-- <option></option> --}}
+                        @if (old('keterangan', $room->keterangan) == 'Masih Kosong')
+                        <option id="keterangan" value="Masih Kosong" {{ old('keterangan',$room->keterangan)=="Masih
+                            Kosong" ? 'selected' :
+                            null}} class="form-control">Masih Kosong</option>
+                        <option id="keterangan" value="Sudah Disewa" {{ old('keterangan',$room->keterangan)=="Sudah
+                            Disewa" ? 'selected' :
+                            null}} class="form-control">Sudah Disewa</option>
+                        @endif
+
+                        @if (old('keterangan', $room->keterangan) == 'Sudah Disewa')
+                        <option id="keterangan" value="Sudah Disewa" {{ old('keterangan',$room->keterangan)=="Sudah
+                            Disewa" ? 'selected' :
+                            null}} class="form-control">Sudah Disewa</option>
+                        <option id="keterangan" value="Masih Kosong" {{ old('keterangan',$room->keterangan)=="Masih
+                            Kosong" ? 'selected' :
+                            null}} class="form-control">Masih Kosong</option>
+                        @endif
+
+                    </select>
+                    <div class="invalid-feedback text-danger">
+                        @error('keterangan')
+                        {{ $message }}
+                        @enderror
+                    </div>
                 </div>
             </div>
 

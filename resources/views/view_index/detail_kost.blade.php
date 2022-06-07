@@ -112,7 +112,7 @@
                         <tr align="center">
                             <th>No</th>
                             {{-- <th>Status</th> --}}
-                            {{-- <th>No. Kamar</th> --}}
+                            <th>No. Kamar</th>
                             <th>Harga</th>
                             <th>Ukuran</th>
                             <th>Keterangan</th>
@@ -148,16 +148,17 @@
                             @endforeach --}}
 
 
-                            {{-- <td>{{ $a->kode_kamar }}</td> --}}
+                            <td>{{ $a->kode_kamar }}</td>
                             <td>Rp.{{ number_format($a->harga , 0, ',', '.')}}</td>
                             <td>{{ number_format($a->ukuran , 0, ',', '.')}} m<sup>2</sup></td>
                             <td>{{ $a->keterangan }}</td>
                             <td>
-                                <a href="/detail-kamar/{{ $a->slug }}" class="btn btn-sm btn-success mt-1 mb-1">
+                                <a href="/detail-kamar/{{ $a->slug }}" target="_blank"
+                                    class="btn btn-sm btn-success mt-1 mb-1">
                                     <i class="fas fa-eye"></i> Detail</a>
                                 @if ($a->keterangan == 'Masih Kosong')
-                                <a href="/pesan-kamar/{{ $a->slug }}" class="btn text-white btn-sm btn-info"><i
-                                        class="fas fa-shopping-cart"></i>
+                                <a href="/pesan-kamar/{{ $a->slug }}" target="_blank"
+                                    class="btn text-white btn-sm btn-info"><i class="fas fa-shopping-cart"></i>
                                     Pesan</a>
                                 {{-- @else
                                 <button class="btn text-white btn-sm btn-info">Sudah Disewa</button> --}}

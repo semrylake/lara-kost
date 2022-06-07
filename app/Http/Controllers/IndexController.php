@@ -62,12 +62,14 @@ class IndexController extends Controller
     {
         $kamar = Room::all()->where('slug', $slug)->first();
         $kost = Kost::all()->where('id', $kamar->kost_id)->first();
-        // dd($kost);
+        $sewa = Resident::where('room_id', $kamar->id)->first();
+        // dd($sewa);
         $images_room = ImageRoom::all()->where('room_id', $kamar->id);
         $data = [
             "kamar" => $kamar,
             "images_room" => $images_room,
             "kost" => $kost,
+            "sewa" => $sewa,
         ];
         return view('view_index.detail_kamar', [
             "judul" => "Detail Kamar",

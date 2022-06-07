@@ -195,7 +195,12 @@ class ResidentController extends Controller
         $resident = $this->Resident->detailResident($a);
         File::delete('foto-penghuni-kost/' . $resident->foto);
         DB::table('residents')->where('slug', $a)->delete();
+        $datakamar = Room::where('id', $resident->room_id)->first();
         // Storage::delete($resident->foto);
+        $data = [
+            'keterangan' => 'Masih Kosong'
+        ];
+        DB::table('rooms')->where('id', $datakamar->id)->update($data);
         return redirect('/resident')->with('del_msg', 'Data berhasil dihapus.');
     }
     public function checkSlug(Request $request)

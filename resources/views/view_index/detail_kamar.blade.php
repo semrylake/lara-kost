@@ -59,8 +59,12 @@
             <a class="text-decoration-none" href="/kost/{{ $kost->slug }}">
                 <h4>{{ $kost->namaKost }}</h4>
             </a>
+            @if ($sewa)
+            <h4 class="text-success fw-bold">Sudah disewa</h4>
+            @else
             <a href="/pesan-kamar/{{ $kamar->slug }}" class="btn btn-success"><i class="fas fa-shopping-cart"></i>
                 Pesan Sekarang</a>
+            @endif
         </div>
 
         <hr>

@@ -169,16 +169,17 @@ class RoomController extends Controller
             'harga.gt' => 'Kolom ini harus diisi dengan angka lebih dari 0 !!',
             'ukuran.gt' => 'Kolom ini harus diisi dengan angka lebih dari 0 !!',
         ]);
+        // dd($request->all());
         $dataroom = $this->Room->detail($room);
         $data = [
-            'kode_kamar' => $request->name . Auth::user()->id,
+            'kode_kamar' => $request->name,
             'slug' => $request->slug,
             'harga' => $request->harga,
             'ukuran' => $request->ukuran,
-            'keterangan' => $request->keterangan . "-",
+            'keterangan' => $request->keterangan
         ];
         $this->Room->updateRoom($dataroom->id, $data);
-        return redirect()->route('edit', $request->slug)->with('upt', 'Data berhasil diubah.');
+        return redirect()->back()->with('upt', 'Data berhasil diubah.');
     }
 
     /**

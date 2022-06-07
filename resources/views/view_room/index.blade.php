@@ -39,6 +39,7 @@
                         <th>No. Kamar</th>
                         <th>Harga</th>
                         <th>Ukuran</th>
+                        <th>Keterangan</th>
                         <th>Opsi</th>
                     </tr>
                 </thead>
@@ -50,6 +51,7 @@
                         <td>{{ $a->kode_kamar }}</td>
                         <td>Rp.{{ number_format($a->harga , 0, ',', '.')}}</td>
                         <td>{{ number_format($a->ukuran , 0, ',', '.')}} m<sup>2</sup></td>
+                        <td>{{ $a->keterangan }}</td>
                         <td>
 
                             <a href="/room-detail/{{ $a->slug }}" class="btn btn-sm btn-success mt-1 mb-1"><i
